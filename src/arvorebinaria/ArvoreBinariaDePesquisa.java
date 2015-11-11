@@ -56,7 +56,7 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
         return nodo;
     }
 
-    public void inseriNaoAvl(T chave) {
+    public void inserirNaoAvl(T chave) {
         raiz = inserirAvl(raiz, chave);
     }
 
@@ -327,31 +327,7 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
             System.out.println(caminho);
         }
         printSequenciasDePares0(nodo.direito);
-    }
-
-    public void printNivelDeImpares() {
-        printNivelDeImpares0(raiz);
-    }
-
-    private void printNivelDeImpares0(Nodo<T> nodo) {
-        int altura = getAltura();
-        for (int i = 0; i < altura; i++) {
-            List<T> nivel = getNivel(i);
-            boolean temPar = false;
-            for (T t : nivel) {
-                Integer v = (Integer) t;
-                if (v % 2 == 0) {
-                    temPar = true;
-                    break;
-                }
-            }
-            if (!temPar) {
-                System.out.println(nivel);
-            }
-        }
-    }
-
-        
+    }      
 
     public ArrayList<T> getNivel(int n) {
         ArrayList<T> r = new ArrayList<>();
@@ -373,25 +349,30 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
         }
     }
     
+    
+    private int cont = 0;
+    
     public String printTree(){        
         String str = "";
+        cont++;
+        cont+=2;
         for(int i = 0; i < getAltura()+1; i++){
+            cont+=4;
             ArrayList<T> lista = getNivel(i);
+            cont+=2;
+            cont+=2;
             for(int j = 0; j < lista.size(); j++){
+                cont+=3;
                 str += lista.get(j) + " ";
+                cont+=3;
             }
             str += "\n";
+            cont++;
         }
-        return str;
+        cont++;
+        return str;        
     }
-
-    public String printArvore() {
-        String str = "Arvore Binária \n";
-        for (int i = 0; i < getAltura(); i++) {
-            str += getNivel(i) + "\n";
-        }
-        return str;
-    }
+    
 
     public List<T> getAllElements() {
         List<T> lista = new ArrayList<>();
