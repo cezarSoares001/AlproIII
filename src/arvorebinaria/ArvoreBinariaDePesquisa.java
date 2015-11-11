@@ -17,61 +17,30 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
 
     private Nodo<T> raiz;
 
-    public static void main(String[] args) {
-        ArvoreBinariaDePesquisa arvore = new ArvoreBinariaDePesquisa();
-        arvore.inserir(15);
-        arvore.inserir(23);
-        arvore.inserir(1);
-        arvore.inserir(3);
-        arvore.inserir(21);
-        arvore.inserir(14);
-        arvore.inserir(57);
-        arvore.inserir(2);        
-//        System.out.println(arvore.toString());
-        System.out.println(arvore.printArvore());
-//        System.out.println(arvore.getAllElements());
-//        System.out.println(arvore.getPathSizeTo(1));
-//        System.out.println(arvore.getAltura());
+    public void inserirAvl(T chave) {
+        raiz = inserirAvl(raiz, chave);
     }
 
-    /**
-     * Insere uma nova chave na árvore.
-     *
-     * Em caso de duplicatas, uma exceção é gerada.
-     *
-     * @param chave o valor da nova chave
-     */
-    public void inserir(T chave) {
-        raiz = inserir0(raiz, chave);
-    }
-
-    /**
-     *
-     * @param nodo
-     * @param chave
-     * @return
-     */
-    private Nodo<T> inserir0(Nodo<T> nodo, T chave) {
+    private Nodo<T> inserirAvl(Nodo<T> nodo, T chave) {
         if (nodo == null) {
             return new Nodo<>(chave);
         }
 
-        // if (chave < nodo.chave) {
         if (chave.compareTo(nodo.chave) < 0) {
-            nodo.esquerdo = inserir0(nodo.esquerdo, chave);
+            nodo.esquerdo = inserirAvl(nodo.esquerdo, chave);
             if (h(nodo.esquerdo) - h(nodo.direito) == 2) {
-                // if (chave < nodo.esquerdo.chave) {
+
                 if (chave.compareTo(nodo.esquerdo.chave) < 0) {
                     nodo = rotacionarComFilhoEsquerdo(nodo);
                 } else {
                     nodo = duplaComFilhoEsquerdo(nodo);
                 }
             }
-            // } else if (chave > nodo.chave) {
+
         } else if (chave.compareTo(nodo.chave) > 0) {
-            nodo.direito = inserir0(nodo.direito, chave);
+            nodo.direito = inserirAvl(nodo.direito, chave);
             if (h(nodo.esquerdo) - h(nodo.direito) == -2) {
-                // if (chave > nodo.direito.chave) {
+
                 if (chave.compareTo(nodo.direito.chave) > 0) {
                     nodo = rotacionarComFilhoDireito(nodo);
                 } else {
@@ -82,6 +51,26 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
             throw new IllegalArgumentException("Chave duplicada");
         }
 
+        nodo.altura = Math.max(h(nodo.esquerdo), h(nodo.direito)) + 1;
+
+        return nodo;
+    }
+
+    public void inseriNaoAvl(T chave) {
+        raiz = inserirAvl(raiz, chave);
+    }
+
+    private Nodo<T> inserirNaoAvl(Nodo<T> nodo, T chave) {
+        if (nodo == null) {
+            return new Nodo<>(chave);
+        }
+        if (chave.compareTo(nodo.chave) < 0) {
+            nodo.esquerdo = inserirNaoAvl(nodo.esquerdo, chave);
+        } else if (chave.compareTo(nodo.chave) > 0) {
+            nodo.direito = inserirNaoAvl(nodo.direito, chave);
+        } else {
+            throw new IllegalArgumentException("Chave duplicada");
+        }
         nodo.altura = Math.max(h(nodo.esquerdo), h(nodo.direito)) + 1;
 
         return nodo;
@@ -219,13 +208,13 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
         return g++;
     }
 
-    public boolean consultar(T chave) {
+    public Nodo<T> consultar(T chave) {
         return consultar0(raiz, chave);
     }
 
-    private boolean consultar0(Nodo<T> nodo, T chave) {
+    private Nodo<T> consultar0(Nodo<T> nodo, T chave) {
         if (nodo == null) {
-            return false;
+            return null;
         }
 
         // if (chave < nodo.chave)
@@ -234,7 +223,7 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
         } else if (chave.compareTo(nodo.chave) > 0) {
             return consultar0(nodo.direito, chave);
         } else {
-            return true;
+            return nodo;
         }
     }
 
@@ -297,20 +286,22 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
         }
 
     }
-    
-    public int getPathSizeTo(T element){        
-        return getPathSizeTo(raiz, element, 0);        
+
+    public int getPathSizeTo(T element) {
+        return getPathSizeTo(raiz, element, 0);
     }
-    
-    private int getPathSizeTo(Nodo<T> nodo, T element, int cont){
-        if(nodo == null)
+
+    private int getPathSizeTo(Nodo<T> nodo, T element, int cont) {
+        if (nodo == null) {
             throw new IllegalArgumentException("Arvore vazia");
-        if(element.compareTo(nodo.chave) < 0){
+        }
+        if (element.compareTo(nodo.chave) < 0) {
             return getPathSizeTo(nodo.esquerdo, element, cont++);
-        }else if(element.compareTo(nodo.chave) > 0){
+        } else if (element.compareTo(nodo.chave) > 0) {
             return getPathSizeTo(nodo.direito, element, cont++);
-        }else 
-            return cont;                    
+        } else {
+            return cont;
+        }
     }
 
     public void printSequenciasDePares() {
@@ -360,8 +351,10 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
         }
     }
 
-    public List<T> getNivel(int n) {
-        List<T> r = new ArrayList<>();
+        
+
+    public ArrayList<T> getNivel(int n) {
+        ArrayList<T> r = new ArrayList<>();
         getNivel0(raiz, n, r, 0);
         return r;
     }
@@ -373,22 +366,36 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
         if (n == atual) {
             r.add(nodo.chave);
         } else if (atual < n) {
+            if(nodo.esquerdo != null)
             getNivel0(nodo.esquerdo, n, r, atual + 1);
+            if(nodo.direito != null)
             getNivel0(nodo.direito, n, r, atual + 1);
         }
     }
     
-    public String printArvore(){
-         String str = "Arvore Binária \n";
-        for(int i = 0; i<getAltura(); i++){
+    public String printTree(){        
+        String str = "";
+        for(int i = 0; i < getAltura()+1; i++){
+            ArrayList<T> lista = getNivel(i);
+            for(int j = 0; j < lista.size(); j++){
+                str += lista.get(j) + " ";
+            }
+            str += "\n";
+        }
+        return str;
+    }
+
+    public String printArvore() {
+        String str = "Arvore Binária \n";
+        for (int i = 0; i < getAltura(); i++) {
             str += getNivel(i) + "\n";
         }
         return str;
     }
-    
-    public List<T> getAllElements(){
+
+    public List<T> getAllElements() {
         List<T> lista = new ArrayList<>();
-        for(int i=0; i<getAltura(); i++){
+        for (int i = 0; i < getAltura(); i++) {
             lista.addAll(getNivel(i));
         }
         return lista;
