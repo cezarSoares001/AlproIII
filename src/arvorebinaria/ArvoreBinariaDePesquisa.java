@@ -57,7 +57,7 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
     }
 
     public void inserirNaoAvl(T chave) {
-        raiz = inserirAvl(raiz, chave);
+        raiz = inserirNaoAvl(raiz, chave);
     }
 
     private Nodo<T> inserirNaoAvl(Nodo<T> nodo, T chave) {
@@ -347,39 +347,25 @@ public class ArvoreBinariaDePesquisa<T extends Comparable<T>> {
             if(nodo.direito != null)
             getNivel0(nodo.direito, n, r, atual + 1);
         }
-    }
+    }  
     
+    public int contador = 0;
     
-    private int cont = 0;
-    
-    public String printTree(){        
-        String str = "";
-        cont++;
-        cont+=2;
-        for(int i = 0; i < getAltura()+1; i++){
-            cont+=4;
-            ArrayList<T> lista = getNivel(i);
-            cont+=2;
-            cont+=2;
-            for(int j = 0; j < lista.size(); j++){
-                cont+=3;
-                str += lista.get(j) + " ";
-                cont+=3;
+    public String printTreeE2(){        
+        String str = "";        
+        contador=+4;
+        for(int i = 0; i < getAltura()+1; i++){                        
+            ArrayList<T> lista = getNivel(i);            
+            contador+=7;            
+            for(int j = 0; j < lista.size(); j++){                
+                contador+=5;
+                str += lista.get(j) + " ";                
             }
             str += "\n";
-            cont++;
-        }
-        cont++;
-        return str;        
-    }
-    
-
-    public List<T> getAllElements() {
-        List<T> lista = new ArrayList<>();
-        for (int i = 0; i < getAltura(); i++) {
-            lista.addAll(getNivel(i));
-        }
-        return lista;
-    }
+            contador+=2;
+        }        
+        contador++;
+        return str;             
+    } 
 
 }
