@@ -34,8 +34,8 @@ public class ArvoreTest extends TestCase{
 // @Test um
      public void testeArvoreComApenaUmNodo() {
          arvore.inserirAvl(10);         
-         String actual = arvore.printTreeE2();
-         String expected = "10 \n";
+         String actual = arvore.printTree();
+         String expected = "   10\n";
          Assert.assertEquals(expected, actual);
      }
 
@@ -44,8 +44,8 @@ public class ArvoreTest extends TestCase{
          arvore.inserirAvl(10);
          arvore.inserirAvl(20);
          arvore.inserirAvl(30);            
-         String actual = arvore.printTreeE2();         
-         String expected = "20 \n10 30 \n";
+         String actual = arvore.printTree();         
+         String expected = "   |-20-|\n   10  30\n";
          Assert.assertEquals(expected, actual);
      }
      
@@ -53,8 +53,8 @@ public class ArvoreTest extends TestCase{
      public void testeArvoreAVLComDoisNodos(){
          arvore.inserirAvl(10);
          arvore.inserirAvl(20);
-         String actual = arvore.printTreeE2();
-         String expected = "10 \n20 \n";
+         String actual = arvore.printTree();
+         String expected = "   10-|\n     20\n";
          Assert.assertEquals(expected, actual);
      } 
      
@@ -65,15 +65,15 @@ public class ArvoreTest extends TestCase{
          arvore.inserirAvl(5);
          arvore.inserirAvl(3);         
          arvore.inserirAvl(1);
-         String actual = arvore.printTreeE2();
-         String expected = "10 \n3 20 \n1 5 \n";
+         String actual = arvore.printTree();
+         String expected = "   |--10-|\n  |3|   20\n  1 5\n";
          Assert.assertEquals(expected, actual);
      }
      
      // @Test cinco
      public void testeArvoreAvlVazia(){
-         String actual = arvore.printTreeE2();
-         String expected = "";
+         String actual = arvore.printTree();
+         String expected = "\n";
          Assert.assertEquals(expected, actual);
      }
      
@@ -84,8 +84,8 @@ public class ArvoreTest extends TestCase{
          arvore.inserirNaoAvl(10);
          arvore.inserirNaoAvl(5);
          arvore.inserirNaoAvl(50);
-         String actual = arvore.printTreeE2();
-         String expected = "1 \n10 \n5 50 \n";
+         String actual = arvore.printTree();
+         String expected = "  1--|\n   |-10-|\n   5   50\n";
          Assert.assertEquals(expected, actual);
      } 
      
@@ -95,8 +95,9 @@ public class ArvoreTest extends TestCase{
          arvore.inserirNaoAvl(7);
          arvore.inserirNaoAvl(5);
          arvore.inserirNaoAvl(3);
-         String actual = arvore.printTreeE2();
-         String expected = "10 \n9 \n7 \n5 \n3 \n";
+         String actual = arvore.printTree();
+         String expected = "     |-10\n    |9\n"
+                 + "   |7\n  |5\n  3\n";
          Assert.assertEquals(expected, actual);
      }
      
@@ -108,8 +109,9 @@ public class ArvoreTest extends TestCase{
          arvore.inserirNaoAvl(12);
          arvore.inserirNaoAvl(7);
          arvore.inserirNaoAvl(13);
-         String actual = arvore.printTreeE2();
-         String expected = "10 \n9 11 \n8 12 \n7 13 \n";
+         String actual = arvore.printTree();
+         String expected = "    |-10-|\n   |9   11-|\n  |8      " +
+                 "12-|\n  7         13\n";
          Assert.assertEquals(expected, actual);
      }
      
@@ -117,8 +119,8 @@ public class ArvoreTest extends TestCase{
          arvore.inserirNaoAvl(10);
          arvore.inserirNaoAvl(20);
          arvore.inserirNaoAvl(30);
-         String actual = arvore.printTreeE2();
-         String expected = "10 \n20 \n30 \n";
+         String actual = arvore.printTree();
+         String expected = "   10-|\n     20-|\n       30\n";
          Assert.assertEquals(expected, actual);
          Assert.assertEquals(2, arvore.getAltura());
      }
@@ -130,10 +132,9 @@ public class ArvoreTest extends TestCase{
          arvore.inserirNaoAvl(4);
          arvore.inserirNaoAvl(6);
          arvore.inserirNaoAvl(20);
-         String actual = arvore.printTreeE2();
-         String expected = "2 \n1 13 \n4 20 \n6 \n";
+         String actual = arvore.printTree();
+         String expected = "  |2---|\n  1 |--13-|\n    " +
+                 "4|   20\n     6\n";
          Assert.assertEquals(expected, actual);
-     }
-     
-     
+     }     
 }

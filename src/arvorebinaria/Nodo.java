@@ -11,14 +11,14 @@ package arvorebinaria;
  */
 public class Nodo<T> {
 
-    public T chave;
+    public int chave;
 
     public int altura;
 
-    public Nodo<T> esquerdo;
-    public Nodo<T> direito;
+    public Nodo esquerdo;
+    public Nodo direito;
 
-    public Nodo(T chave) {
+    public Nodo(int chave) {
         this.chave = chave;
         altura = 0;
         esquerdo = direito = null;
