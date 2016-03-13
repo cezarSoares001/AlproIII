@@ -17,9 +17,9 @@ public class RecusividadeExercicios {
         System.out.println("somatorio de 5: " + somatorioDeN(5));
         System.out.println("de 1 a 5: " + somatorioDeKaJ(1,5));
         ArrayList<Integer> lista = new ArrayList<>();
-        lista.add(1);
-        lista.add(2);
-        lista.add(3);
+        lista.add(20);
+        lista.add(30);
+        lista.add(10);
         System.out.println("somatorio da lista: " + somatorioDeUmArrayList(lista));
         System.out.println("Maior valor da lista: " + findBiggest(lista));
     }
@@ -80,7 +80,7 @@ public class RecusividadeExercicios {
         if (lista.isEmpty()) {
             return 0;
         }
-        return findBiggest0(lista, 0, lista.get(0));
+        return findBiggest0(lista, 0, 0);
     }
 
     private static int findBiggest0(ArrayList<Integer> lista, int i, int biggest) {
