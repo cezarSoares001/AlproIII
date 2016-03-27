@@ -13,9 +13,10 @@ public class Ordenacao {
     
     public static void main(String[] args) {
         int[] lista = {2,5,3,6,1,4,6};        
-        bubbleSort(lista);                
-        bubbleSortVersaoMelhorada(lista);
-        insertionSort(lista);
+//        bubbleSort(lista);                
+//        bubbleSortVersaoMelhorada(lista);
+//        insertionSort(lista);
+        quickSort(lista, 0, lista.length-1);
         toString(lista);
     }
     
@@ -70,7 +71,37 @@ public class Ordenacao {
         }
     }
     
-    public static void 
+    /**
+     * pior caso: (vetor já ordenado) O(n²)
+     * melhor caso: O(n x log n)
+     * caso médio: O(n X log n)
+     * este algoritmo não é eficiente quando o vetor está ordenando
+     * pois ele sempre pega um pivô da ponta do vetor, então a partição não
+     * funcionará com eficiencia 
+     * @param v
+     * @param low
+     * @param high 
+     */
+    public static void quickSort(int[] v, int low, int high) {        
+        if((high - low) > 0) {
+            int pivot = partition(v, low, high);
+            quickSort(v, low, pivot-1);
+            quickSort(v, pivot+1, high);
+        }       
+    }
+    
+    private static int partition(int[] v, int low, int high) {
+        int firsthigh = low;
+        int pivot = high;
+        for(int i = low; i < high; i++){
+            if(v[i] < v[pivot]){
+                troca(v, i, firsthigh);
+                firsthigh++;
+            }                        
+        }
+        troca(v, pivot, firsthigh);
+        return firsthigh;
+    }
     
     private static void troca(int[] lista, int j, int i) {
         int aux = lista[j];
@@ -82,5 +113,5 @@ public class Ordenacao {
         for(int i = 0; i < lista.length; i++){
             System.out.print(lista[i] + ",");
         }        
-    }
+    }    
 }
