@@ -13,8 +13,8 @@ public class Ordenacao {
     
     public static void main(String[] args) {
         int[] lista = {2,5,3,6,1,4,6};        
-//        bubbleSort(lista);                
-//        bubbleSortVersaoMelhorada(lista);
+        bubbleSort(lista);                
+        bubbleSortVersaoMelhorada(lista);
         insertionSort(lista);
         toString(lista);
     }
@@ -69,6 +69,8 @@ public class Ordenacao {
             lista[i+1] = chave;
         }
     }
+    
+    public static void 
     
     private static void troca(int[] lista, int j, int i) {
         int aux = lista[j];
