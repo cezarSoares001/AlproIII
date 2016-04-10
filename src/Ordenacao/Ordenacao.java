@@ -12,11 +12,11 @@ package Ordenacao;
 public class Ordenacao {
     
     public static void main(String[] args) {
-        int[] lista = {2,5,3,6,1,4,6};        
+        int[] lista = {0,2,1,3};        
 //        bubbleSort(lista);                
-//        bubbleSortVersaoMelhorada(lista);
+        bubbleSortVersaoMelhorada(lista);
 //        insertionSort(lista);
-        quickSort(lista, 0, lista.length-1);
+//        quickSort(lista, 0, lista.length-1);
         toString(lista);
     }
     
@@ -37,12 +37,13 @@ public class Ordenacao {
     /**     
      * Versão melhorada do BubbleSort 
      * pior caso O(n²)
-     * melhor caso O(n log n)     
+     * melhor caso O(n)     
      * @param lista 
      */
-    public static void bubbleSortVersaoMelhorada(int [] lista){
+    public static int bubbleSortVersaoMelhorada(int [] lista){
         boolean trocou = true;
-        while(trocou){
+        int j;
+        for(j = 0; trocou != false; j++){
             trocou = false;
             for(int i=0; i < lista.length-1; i++){
                 if(lista[i] > lista[i+1]){
@@ -51,6 +52,7 @@ public class Ordenacao {
                 }
             }
         }
+        return j;
     }
     
     /**
@@ -115,3 +117,4 @@ public class Ordenacao {
         }        
     }    
 }
+    
