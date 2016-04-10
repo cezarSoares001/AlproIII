@@ -13,8 +13,24 @@ public class P1 {
     public static void main(String[] args) {        
         int valoresInteiros[] = {1,2,4,7,12,34,76};
         System.out.println(pb(30,40,valoresInteiros));
+        int matriz[][] = {{2,3,5},{32,12,34},{0,2,4}};
+        int[] v = somaDosValoresDeUmaMatriz(matriz);
+        for(int i=0; i < v.length; i++){
+            System.out.print("[" + v[i] + "]");
+        }
     }
     
+    public static int[] somaDosValoresDeUmaMatriz(int [][]matriz){        
+        int[] somaDeCadaLinha = new int[matriz.length];
+        for(int i = 0; i < matriz.length; i++){
+            int soma = 0;
+            for(int j = 0; j < matriz[i].length; j++){
+                soma = soma + matriz[i][j];
+            }
+            somaDeCadaLinha[i] = soma;
+        }
+        return somaDeCadaLinha;
+    }
     
     
     /**
