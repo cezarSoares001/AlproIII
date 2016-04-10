@@ -12,7 +12,7 @@ package ExerciciosDeProva;
 public class P1 {
     public static void main(String[] args) {        
         int valoresInteiros[] = {1,2,4,7,12,34,76};
-        System.out.println(pb(4,7,valoresInteiros));
+        System.out.println(pb(30,40,valoresInteiros));
     }
     
     
@@ -35,6 +35,9 @@ public class P1 {
     }
     
     private static int pbPosicao(int low, int high, int val1, int[] v){
+        if(low > high){
+            return -1;
+        }
         int p = low + ((high - low) /2);
         if(val1 < v[p]){
             return pbPosicao(low, p - 1, val1, v);
@@ -47,7 +50,10 @@ public class P1 {
         } 
     }
 
-    private static int pbValor(int low, int high, int val2, int[] v) {
+    private static int pbValor(int low, int high, int val2, int[] v) {        
+        if(low > high){
+            return -1;
+        }
         int p = low + ((high - low) /2);
         if(val2 < v[p]){
             return pbPosicao(low, p - 1, val2, v);
