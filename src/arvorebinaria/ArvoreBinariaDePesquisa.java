@@ -18,6 +18,59 @@ import java.util.Stack;
 public class ArvoreBinariaDePesquisa {
 
     private Nodo raiz;
+    
+    public List<Integer> filhosPares (){
+        List<Integer> lista = new ArrayList<>();
+        return filhosPares0(raiz,lista);
+    }
+    
+    private List<Integer> filhosPares0(Nodo nodo, List<Integer> lista){
+        if(nodo == null){
+            return lista;
+        }
+        if(nodo.direito != null && nodo.esquerdo != null){
+            if((nodo.esquerdo.chave % 2 == 0) && (nodo.direito.chave % 2 == 0)){
+                lista.add(nodo.chave);
+            }
+        }
+        filhosPares0(nodo.direito, lista);       
+        filhosPares0(nodo.esquerdo,lista);        
+        return lista;
+    }
+    
+    public Nodo retornaNodo(int valor) {
+        return retornaNodo0(raiz, valor);
+    }
+    
+    private Nodo retornaNodo0(Nodo nodo, int valor) {
+        if(nodo == null){
+            return null;
+        }        
+        if(nodo.chave < valor) {
+            retornaNodo0(nodo.direito, valor);              
+        } else if(nodo.chave == valor){
+            return nodo;
+        }
+        return retornaNodo0(nodo.esquerdo, valor);
+    }
+    
+    public int descendentes(int valor) {        
+        Nodo node = retornaNodo(valor);
+        System.out.println(""+ node);
+        List<Integer> list = new ArrayList<>();
+        return descendentes0(node, list);
+    }
+    
+    private int descendentes0(Nodo nodo, List<Integer> list){                
+        if(nodo == null) {            
+            return list.size()-1;            
+        }             
+        
+        descendentes0(nodo.esquerdo, list);                
+        descendentes0(nodo.direito, list);                       
+        list.add(nodo.chave);
+        return list.size()-1;
+    }
 
     public void inserirAvl(int chave) {
         raiz = inserirAvl(raiz, chave);
